@@ -4,12 +4,14 @@ const Schema = mongoose.Schema;
 const listingSchema = new Schema({
   title: {
     type: String,
+    required : true
   },
   description: {
     type: String,
   },
   image: {
-    type: URL,
+    type: String,
+    set : (v)=> v===""? "https://media.assettype.com/freepressjournal/2023-02/51ded765-ba46-4902-801b-5f7373f340d6/fdvcx.png?width=1200" : v ,
   },
   price: {
     type: Number,
