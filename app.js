@@ -19,7 +19,10 @@ async function main() {
 }
 
 //Index Route
-
+app.get("/listings", async (req, res) => {
+  const allListings = await Listing.find({});
+  res.render("listings/index.ejs", { allListings });
+});
 
 //Show Route
 app.get("/listing/:id" , async (req , res)=>{
