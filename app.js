@@ -5,6 +5,7 @@ const MONGO_URL = "mongodb://127.0.0.1:27017/StayNest";
 const Listing = require("../StayNest/models/listing.js");
 const path = require("path")
 
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine" , "ejs")
 app.set("views" , path.join(__dirname,"views"))
 
@@ -39,9 +40,10 @@ app.get("/listing/:id" , async (req , res)=>{
 })
 
 //Add new Listing Route
-app.post("/listings" , (req , res )=>{
-  const newListing = req.body.listing
-  console.log(newListing);
+app.post("/listings" , async (req , res )=>{
+  const newListing = new Listing(req.body.listing)
+  await newListing.save()
+  res.redirect("/listings")
   
 
 })
