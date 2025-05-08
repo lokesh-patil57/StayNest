@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayNest</title>
+</head>
+<body>
+    <h3>Create New Listing</h3>
+    <form action="/listings" method="post">
+        <ul>
+            <li><input type="text" name="listing[title]" placeholder="Enter title"></li>
+            <br>
+            <li><textarea name="listing[description]" > Enter description</textarea></li>
+            <br>
+            <li><input type="text" name="listing[image]" placeholder="Enter image url/link"></li>
+            <br>
+            <li><input type="number" name="listing[price]" placeholder="Enter Price"></li>
+            <br>
+            <li><input type="text" name="listing[country]" placeholder="Enter country"></li>
+            <br><br>
+            <button>Add listing</button>
+        </ul>
+    </form>
+</body>
+</html>
