@@ -24,11 +24,26 @@ app.get("/listings", async (req, res) => {
   res.render("listings/index.ejs", { allListings });
 });
 
+//Create new route
+app.get("/listings/new",  (req, res )=>{
+  res.render("listings/new.ejs")
+})
+
+
+
 //Show Route
 app.get("/listing/:id" , async (req , res)=>{
  let {id} = req.params
  const listing = await Listing.findById(id)
  res.render("listings/show.ejs" , {listing})
+})
+
+//Add new Listing Route
+app.post("/listings" , (req , res )=>{
+  const newListing = req.body.listing
+  console.log(newListing);
+  
+
 })
 
 // app.get("/testlisting" , async (req , res) =>{
