@@ -39,6 +39,13 @@ app.get("/listing/:id" , async (req , res)=>{
  res.render("listings/show.ejs" , {listing})
 })
 
+//Edit Route
+app.get("/listings/:id/edit", async (req,res)=>{
+  let {id} = req.params
+  let listing = await Listing.findById(id)
+  res.render("listings/edit.ejs" , {listing})
+})
+
 //Add new Listing Route
 app.post("/listings" , async (req , res )=>{
   const newListing = new Listing(req.body.listing)
