@@ -1,3 +1,15 @@
-body{
+/* body{
     background-color: #ddffb5;
+} */
+/* Navbar */
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.fa-building-user{
+    color: black;
+    font-size: 2rem;
+}
+.nav-link{
+    color: #222222 !important;
 }
