@@ -3,7 +3,7 @@
   <h3>All Listings</h3>
   <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
     <% for (const listing of allListings) {%>
-    <a href="/listing/<%= listing._id %>">
+    <a href="/listing/<%= listing._id %>" class="listing-link">
       <div class="card">
         <img
           src="<%= listing.image %>"
@@ -11,8 +11,11 @@
           alt="listing_image"
           style="height: 20rem"
         />
+         <div class="card-img-overlay" style="color: #222222;"> 
+          ABCDDD
+         </div>
         <div class="card-body">
-          <p class="card-text">
+          <p class="card-text" style="color: #222222 ;">
             <b><%= listing.title %></b> <br />
             <%= listing.price.toLocaleString("en-IN") %>/night
           </p>
