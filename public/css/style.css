@@ -18,12 +18,11 @@ body {
   font-size: 2rem;
 }
 .nav-link {
-      font-weight: 600 !important;
+  font-weight: 600 !important;
   color: #222222 !important;
 }
 /* Footer */
 .f-info-links a {
-
   text-decoration: none;
   color: #222222;
 }
@@ -76,8 +75,13 @@ body {
   opacity: 0.2;
   background-color: white;
 }
-
-.add-btn{
-    background-color: #fe8420 !important;
-    border: none !important;
+/* New Page  */
+.add-btn {
+  background-color: #fe8420 !important;
+  border: none !important;
+}
+/* Edit Page  */
+.edit-btn {
+  background-color: #fe8420 !important;
+  border: none !important;
 }
