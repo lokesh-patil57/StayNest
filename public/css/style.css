@@ -85,3 +85,16 @@ body {
   background-color: #fe8420 !important;
   border: none !important;
 }
+
+/* Show Page  */
+.show-img {
+  height: 40vh !important;
+}
+.btns {
+  display: flex;
+  gap: 20px;
+}
+.edit-btn {
+  background-color: #fe8420 !important;
+  border: none !important;
+}
