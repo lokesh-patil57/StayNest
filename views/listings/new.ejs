@@ -2,9 +2,14 @@
 <body>
   <dvi class="row">
     <div class="col-8 offset-2">
-        <br>
+      <br />
       <h3>Create New Listing</h3>
-      <form action="/listings" method="post" novalidate class="needs-validation" >
+      <form
+        action="/listings"
+        method="post"
+        novalidate
+        class="needs-validation"
+      >
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
@@ -14,10 +19,11 @@
             class="form-control"
             required
           />
+          <div class="valid-feedback">Title looks good!</div>
         </div>
 
         <div class="mb-3">
-          <label for="description" class="form-label" >Description</label>
+          <label for="description" class="form-label">Description</label>
           <textarea
             name="listing[description]"
             class="form-control"
@@ -25,6 +31,7 @@
             required
           >
           </textarea>
+          <div class="invalid-feedback" >Description should be short</div>
         </div>
         <div class="mb-3">
           <label for="image" class="form-label">Image</label>
@@ -46,6 +53,7 @@
               class="form-control"
               required
             />
+            <div class="invalid-feedback" >Price should be in positive number</div>
           </div>
           <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>
@@ -57,6 +65,7 @@
               class="form-control"
               required
             />
+            <div class="invalid-feedback" >Valid country name required</div>
           </div>
         </div>
 
@@ -69,10 +78,11 @@
             class="form-control"
             required
           />
+          <div class="invalid-feedback" >location should be correct</div>
         </div>
         <br /><br />
         <button class="btn btn-dark add-btn">Add listing</button>
-        <br><br><br>
+        <br /><br /><br />
       </form>
     </div>
   </dvi>
