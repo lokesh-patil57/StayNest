@@ -4,7 +4,7 @@
     <div class="col-8 offset-2">
         <br>
       <h3>Create New Listing</h3>
-      <form action="/listings" method="post">
+      <form action="/listings" method="post" novalidate class="needs-validation" >
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
@@ -12,15 +12,17 @@
             name="listing[title]"
             placeholder="Enter title"
             class="form-control"
+            required
           />
         </div>
 
         <div class="mb-3">
-          <label for="description" class="form-label">Description</label>
+          <label for="description" class="form-label" >Description</label>
           <textarea
             name="listing[description]"
             class="form-control"
             placeholder="Enter description"
+            required
           >
           </textarea>
         </div>
@@ -42,6 +44,7 @@
               name="listing[price]"
               placeholder="Enter Price"
               class="form-control"
+              required
             />
           </div>
           <div class="mb-3 col-md-8">
@@ -52,6 +55,7 @@
               name="listing[country]"
               placeholder="Enter country"
               class="form-control"
+              required
             />
           </div>
         </div>
@@ -63,6 +67,7 @@
             name="listing[location]"
             placeholder="Enter location"
             class="form-control"
+            required
           />
         </div>
         <br /><br />
