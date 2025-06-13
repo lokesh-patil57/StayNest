@@ -7,6 +7,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/ExpressErrors.js");
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -26,10 +27,10 @@ async function main() {
 }
 
 //Index Route
-app.get("/listings", async (req, res) => {
+app.get("/listings",wrapAsync( async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
-});
+}));
 
 //Create new route
 app.get("/listings/new", (req, res) => {
@@ -37,37 +38,40 @@ app.get("/listings/new", (req, res) => {
 });
 
 //Show Route
-app.get("/listing/:id", async (req, res) => {
+app.get("/listing/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/show.ejs", { listing });
-});
+}));
 
 //Edit Route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit",wrapAsync( async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findById(id);
   res.render("listings/edit.ejs", { listing });
-});
+}));
 
 //Upadate Route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   res.redirect(`/listing/${id}`);
-});
+}));
 
 // Destroy Route
-app.delete("/listings/:id", async (req, res) => {
+app.delete("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
-});
+}));
 
 //Create Route
 app.post(
   "/listings",
   wrapAsync(async (req, res) => {
+    if(!req.body.listings){
+      throw new ExpressError(400,"Send Valid Data For Request!")
+    }
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect(`/listings/${id}`);
@@ -88,15 +92,19 @@ app.post(
 
 // })
 
+
+
 app.get("/", (req, res) => {
   res.send("I am Root");
 });
 
 app.use((err,req,res,next)=>{
-  res.send("Something went Wrong !!")
+  let {statusCode=500 , message="Something went wrong"}= err
+  res.status(statusCode).send(message)
 })
 
 app.listen(8080, (req, res) => {
   console.log(`app is listening on port 8080`);
   console.log(`http://localhost:8080`);
 });
+
