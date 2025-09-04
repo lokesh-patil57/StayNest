@@ -15,6 +15,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.join(__dirname, "/public")));
 
 main()
   .then(() => {
@@ -31,10 +33,10 @@ app.get("/", (req, res) => {
 });
 
 //Index Route
-app.get("/listings", async (req, res) => {
+app.get("/listings",wrapAsync( async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
-});
+}));
 
 //New route
 app.get("/listings/new", (req, res) => {
@@ -62,14 +64,14 @@ app.post(
 );
 
 //Edit Route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit",wrapAsync( async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findById(id);
   res.render("listings/edit.ejs", { listing });
-});
+}));
 
 //Upadate Route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   res.redirect(`/listings/${id}`);
@@ -91,7 +93,13 @@ app.use((err, req, res, next) => {
   res.status(statusCode).send(message)
 });
 
+app.use((err,req,res,next)=>{
+  let {statusCode=500 , message="Something went wrong"}= err
+  res.status(statusCode).send(message)
+})
+
 app.listen(8080, (req, res) => {
   console.log(`app is listening on port 8080`);
   console.log(`http://localhost:8080`);
 });
+
