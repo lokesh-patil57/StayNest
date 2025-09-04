@@ -64,16 +64,6 @@ app.post(
   }));
 
 
-//Create Route
-app.post("/listings", wrapAsync(async (req, res) => {
-  if (!req.body.listing) {
-    throw new ExpressError(400,"Send Valid Data for Listing!")
-  }
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect(`/listings/${id}`);
-}));
-
 //Edit Route
 app.get("/listings/:id/edit",wrapAsync( async (req, res) => {
   let { id } = req.params;
@@ -95,24 +85,6 @@ app.delete("/listings/:id", async (req, res) => {
   res.redirect("/listings");
 });
 
-// app.all((req,res,next)=>{
-//   next(new ExpressError(404,"Page not found!!!"))
-// })
-
-app.use((err, req, res, next) => {
-  let{statusCode=500,message="page not found!"} = err
-  res.status(statusCode).send(message)
-});
-
-app.use((err,req,res,next)=>{
-  let {statusCode=500 , message="Something went wrong"}= err
-  res.status(statusCode).send(message)
-})
-app.delete("/listings/:id",wrapAsync( async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  res.redirect("/listings");
-}));
 
 // app.all("*",(err,req,res,next)=>{
 //   next(new ExpressError(400,"Page Not Found!"))
@@ -120,7 +92,8 @@ app.delete("/listings/:id",wrapAsync( async (req, res) => {
 
 app.use((err,req,res,next)=>{
   let {statusCode=500,message="Something went Wrong!"} = err
-  res.status(statusCode).send(message)
+  res.status(statusCode).render("error.ejs",{message})
+  // res.status(statusCode).send(message)
 })
 
 
