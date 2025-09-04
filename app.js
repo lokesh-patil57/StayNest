@@ -6,8 +6,8 @@ const Listing = require("../StayNest/models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const ExpressError = require("./utils/ExpressError.js")
-const wrapAsync = require("./utils/wrapAsync.js")
+const wrapAsync = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -30,11 +30,14 @@ app.get("/", (req, res) => {
   res.send("I am Root");
 });
 
+
+
 //Index Route
 app.get("/listings",wrapAsync( async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
 }));
+
 
 //New route
 app.get("/listings/new", (req, res) => {
@@ -47,6 +50,19 @@ app.get("/listing/:id",wrapAsync( async (req, res) => {
   const listing = await Listing.findById(id);
   res.render("listings/show.ejs", { listing });
 }));
+
+//Create Route
+app.post(
+  "/listings",
+  wrapAsync(async (req, res, next) => {
+    if (!req.body.listing) {
+      throw new ExpressError(400,"Send Valid Data for Listing")
+    }
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect(`/listings`);
+  }));
+
 
 //Create Route
 app.post("/listings", wrapAsync(async (req, res) => {
@@ -69,10 +85,29 @@ app.get("/listings/:id/edit",wrapAsync( async (req, res) => {
 app.put("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  res.redirect(`/listing/${id}`);
+  res.redirect(`/listings/${id}`);
 }));
 
 // Destroy Route
+app.delete("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndDelete(id);
+  res.redirect("/listings");
+});
+
+// app.all((req,res,next)=>{
+//   next(new ExpressError(404,"Page not found!!!"))
+// })
+
+app.use((err, req, res, next) => {
+  let{statusCode=500,message="page not found!"} = err
+  res.status(statusCode).send(message)
+});
+
+app.use((err,req,res,next)=>{
+  let {statusCode=500 , message="Something went wrong"}= err
+  res.status(statusCode).send(message)
+})
 app.delete("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
@@ -94,3 +129,4 @@ app.listen(8080, (req, res) => {
   console.log(`app is listening on port 8080`);
   console.log(`http://localhost:8080`);
 });
+
