@@ -47,10 +47,9 @@ app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
-  res.locals.error = req.flash("Error");
+  res.locals.error = req.flash("error");
   next();
 });
-
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
@@ -60,9 +59,11 @@ app.use("/listings/:id/reviews", reviews);
 // })
 
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "Something went Wrong!" } = err;
-  res.status(statusCode).render("error.ejs", { message });
-  // res.status(statusCode).send(message)
+  let { statusCode = 500, message = "Something went wrong" } = err;
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(statusCode).send(message);
 });
 
 app.listen(8080, (req, res) => {
