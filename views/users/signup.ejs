@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<div class="row">
+  <div class="col-8 offset-3">
+    <h1 class="col-8 offset-3">Sign Up for StayNest</h1>
+    <form action="/signup" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"  
+            id="username"
+            placeholder="Enter title"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+         <div class="mb-3">
+          <label for="email" class="form-label">email</label>
+          <input
+            type="email"  
+            id="email"
+            name="email"
+            placeholder="Enter title"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"  
+            id="password"
+            name="password"
+            placeholder="Enter title"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <button class="btn btn-success">SignUp!</button>
+    </form>
+  </div>
+</div>
