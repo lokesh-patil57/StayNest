@@ -36,9 +36,19 @@ router.post(
     failureFlash: true,
   }),
   async (req, res) => {
-    req.flash("success","Welcome to StayNest you logged in!")
-    res.redirect("/listings")
+    req.flash("success", "Welcome to StayNest you logged in!");
+    res.redirect("/listings");
   }
 );
+
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      next(err);
+    }
+    req.flash("error","You are logged Out!")
+    res.redirect("/listings")
+  });
+});
 
 module.exports = router;
