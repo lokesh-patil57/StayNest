@@ -5,6 +5,7 @@ const { listingSchema, reviewSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const flash = require("connect-flash");
+const { isLoggedin } = require("../middleware.js");
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -26,11 +27,7 @@ router.get(
 );
 
 //New route
-router.get("/new", (req, res) => {
-  if (!req.isAuthenticated()) {
-    req.flash("error","You must be logged in to create listing!")
-    return res.redirect("/listings")
-  }
+router.get("/new", isLoggedin, (req, res) => {
   res.render("listings/new.ejs");
 });
 
@@ -51,6 +48,7 @@ router.get(
 //Create Route
 router.post(
   "/",
+  isLoggedin,
   validateListing,
   wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
@@ -63,6 +61,7 @@ router.post(
 //Edit Route
 router.get(
   "/:id/edit",
+  isLoggedin,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
@@ -78,6 +77,7 @@ router.get(
 router.put(
   "/:id",
   validateListing,
+  isLoggedin,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -87,11 +87,15 @@ router.put(
 );
 
 // Destroy Route
-router.delete("/:id", async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  req.flash("success", "Listing Deleted successfully !");
-  res.redirect("/listings");
-});
+router.delete(
+  "/:id",
+  isLoggedin,
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndDelete(id);
+    req.flash("success", "Listing Deleted successfully !");
+    res.redirect("/listings");
+  })
+);
 
 module.exports = router;
