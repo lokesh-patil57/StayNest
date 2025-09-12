@@ -11,11 +11,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-
 const userRouter = require("./routes/user.js");
 const listingRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/review.js");
-
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -62,13 +60,13 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
   next();
 });
 
-
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-app.use("/", userRouter)
+app.use("/", userRouter);
 
 // app.all("*",(err,req,res,next)=>{
 //   next(new ExpressError(400,"Page Not Found!"))
