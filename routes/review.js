@@ -4,7 +4,11 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("../schema.js");
 const Reviews = require("../models/review.js");
-const { validateReview, isLoggedin } = require("../middleware.js");
+const {
+  validateReview,
+  isLoggedin,
+  isReviewAuthor,
+} = require("../middleware.js");
 const Listing = require("../models/listing.js");
 
 // Reviews Route
@@ -29,6 +33,8 @@ router.post(
 //Delete Review Route
 router.delete(
   "/:reviewId",
+  isLoggedin,
+  isReviewAuthor,
   wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });

@@ -1,4 +1,5 @@
 const Listing = require("./models/listing");
+const Review = require("./models/review.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 
@@ -46,4 +47,14 @@ module.exports.validateReview = (req, res, next) => {
   } else {
     next();
   }
+};
+
+module.exports.isReviewAuthor = async (req, res, next) => {
+  let { id, reviewid } = req.params;
+  let reviiew = await Review.findById(reviewid);
+  if (!review.author._id.equals(res.locals.currUser._id)) {
+    req.flash("error", "You are not hte Author of the Listing !");
+    return res.redirect(`/listings/${id}`);
+  }
+  next();
 };
