@@ -19,8 +19,8 @@
       <p class="card-text"><%= listing.country %></p>
     </div>
 
-    <br /><br />
-
+    <br />
+    <%if(currUser && currUser._id.equals(listing.owner._id)){%>
     <div class="btns">
       <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark edit-btn"
         >Edit
@@ -34,8 +34,9 @@
         <button class="btn btn-dark">Delete</button>
       </form>
     </div>
-
+    <%}%>
     <hr />
+    <%if(currUser){%>
     <div class="col-12 mb-3">
       <h4>Leave a Review</h4>
       <form
@@ -71,6 +72,7 @@
         </div>
         <button class="btn btn-outline-dark">Submit</button>
       </form>
+      <%}%>
       <hr />
       <p><b>All Reviews</b></p>
       <div class="row">

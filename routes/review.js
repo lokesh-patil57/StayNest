@@ -1,23 +1,22 @@
 const express = require("express");
-const router = express.Router({mergeParams:true});
+const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("../schema.js");
 const Reviews = require("../models/review.js");
-const {validateReview} = require("../middleware.js")
+const { validateReview, isLoggedin } = require("../middleware.js");
 const Listing = require("../models/listing.js");
-
-
-
 
 // Reviews Route
 // Post Review Route
 router.post(
   "/",
+  isLoggedin,
   validateReview,
   wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReview = new Reviews(req.body.review);
+    newReview.author = req.user._id;
     listing.reviews.push(newReview);
     await newReview.save();
     await listing.save();
