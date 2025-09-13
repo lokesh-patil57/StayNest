@@ -5,7 +5,7 @@ const { listingSchema, reviewSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const flash = require("connect-flash");
-const { isLoggedin } = require("../middleware.js");
+const { isLoggedin, isOwner } = require("../middleware.js");
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -69,25 +69,21 @@ router.get(
     let { id } = req.params;
     let listing = await Listing.findById(id);
     if (!listing) {
-      req.flash("error", "Listing you requested for does not exists !");
+      req.flash("error", "Listing you requested for does not exists ");
       return res.redirect("/listings"); // <-- Add return here
     }
     res.render("listings/edit.ejs", { listing });
   })
-);
+); 
 
 //Upadate Route
 router.put(
   "/:id",
   validateListing,
   isLoggedin,
+  isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findById(id);
-    if (!listing.owner._id.equals(res.locals.currUser._id)) {
-      req.flash("error", "You don't have permission to Edit !");
-      return res.redirect(`/listings/${id}`);
-    }
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     req.flash("success", "Listing Updated successfully !");
     res.redirect(`/listings/${id}`);
