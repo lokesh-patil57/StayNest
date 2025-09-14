@@ -8,7 +8,7 @@ const flash = require("connect-flash");
 const { isLoggedin, isOwner } = require("../middleware.js");
 const { validateListing } = require("../middleware.js");
 
-const listingController = require("../controllers/listing.js");
+const listingController = require("../controllers/listings.js");
 
 //Index Route
 router.get("/", wrapAsync(listingController.index));
