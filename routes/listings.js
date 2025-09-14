@@ -10,22 +10,28 @@ const { validateListing } = require("../middleware.js");
 
 const listingController = require("../controllers/listings.js");
 
-//Index Route
-router.get("/", wrapAsync(listingController.index));
+router
+  .route("/")
+  .get(wrapAsync(listingController.index))
+  .post(
+    isLoggedin,
+    validateListing,
+    wrapAsync(listingController.createListing)
+  );
 
 //New route
 router.get("/new", isLoggedin, listingController.renderNewForm);
 
-//Show Route
-router.get("/:id", wrapAsync(listingController.showListing));
-
-//Create Route
-router.post(
-  "/",
-  isLoggedin,
-  validateListing,
-  wrapAsync(listingController.createListing)
-);
+router
+  .route("/:id")
+  .get(wrapAsync(listingController.showListing))
+  .put(
+    validateListing,
+    isLoggedin,
+    isOwner,
+    wrapAsync(listingController.updateListing)
+  )
+  .delete(isLoggedin, wrapAsync(listingController.destroyListing));
 
 //Edit Route
 router.get(
@@ -33,17 +39,5 @@ router.get(
   isLoggedin,
   wrapAsync(listingController.renderEditForm)
 );
-
-//Upadate Route
-router.put(
-  "/:id",
-  validateListing,
-  isLoggedin,
-  isOwner,
-  wrapAsync(listingController.updateListing)
-);
-
-// Destroy Route
-router.delete("/:id", isLoggedin, wrapAsync(listingController.destroyListing));
 
 module.exports = router;
