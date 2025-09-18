@@ -36,12 +36,11 @@
           <div class="invalid-feedback">Description should be short</div>
         </div>
         <div class="mb-3">
-          <label for="image" class="form-label">Image</label>
+          <label for="image" class="form-label">New Image link</label>
           <input
             class="form-control"
-            type="text"
+            type="file"
             name="listing[image]"
-            required
             value="<%= listing.image %>"
           />
           <div class="invalid-feedback">Valid image link/URL required</div>
