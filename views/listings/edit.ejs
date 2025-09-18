@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <body>
-  <dvi class="row mt-3">
+  <div class="row mt-3">
     <div class="col-8 offset-2">
       <h3>Edit Listing</h3>
       <form
@@ -34,6 +34,10 @@
 <%= listing.description %>
           </textarea>
           <div class="invalid-feedback">Description should be short</div>
+        </div>
+        <div class="mb-3">
+          Original Listing Image <br />
+          <img src="<%= originalImageUrl %>" />
         </div>
         <div class="mb-3">
           <label for="image" class="form-label">New Image link</label>
@@ -89,5 +93,5 @@
         <button class="btn btn-dark edit-btn mt-3 mb-2">Update listing</button>
       </form>
     </div>
-  </dvi>
+  </div>
 </body>
