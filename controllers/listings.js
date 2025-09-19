@@ -18,7 +18,7 @@ module.exports.showListing = async (req, res) => {
     req.flash("error", "Listing you requested for does not exists !");
     return res.redirect("/listings"); // <-- Add return here
   }
-  res.render("listings/show.ejs", { listing });
+  res.render("listings/show.ejs", { listing ,  GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY  });
 };
 
 module.exports.createListing = async (req, res, next) => {

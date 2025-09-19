@@ -122,9 +122,10 @@
         <button class="btn btn-outline-dark">Submit</button>
       </form>
       <hr />
-      <%}%>
-      <p><b>All Reviews</b></p>
+      <%}%> <%if(listing.reviews.length > 0) { %>
+
       <div class="row">
+        <p><b>All Reviews</b></p>
         <% for(review of listing.reviews) { %>
         <div class="card col-5 ms-3 mb-3">
           <div class="card-body">
@@ -135,7 +136,7 @@
             ></p>
             <p class="card-text"><%=review.comment%></p>
           </div>
-          <br>
+          <br />
           <form
             class="mb-3"
             action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
@@ -146,6 +147,12 @@
         </div>
         <%}%>
       </div>
+      <%}%>
     </div>
   </div>
+  <div class="col-6 offset-3 mb-3">
+    <h3>Where you'll be</h3>
+    <div id="map" style="width:100%;height:400px;"></div>
+</gmp-map>
+</div>
 </div>
