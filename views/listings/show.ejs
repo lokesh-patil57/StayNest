@@ -152,7 +152,39 @@
   </div>
   <div class="col-6 offset-3 mb-3">
     <h3>Where you'll be</h3>
-    <div id="map" style="width:100%;height:400px;"></div>
-</gmp-map>
-</div>
+    <div id="map" style="width: 100%; height: 400px"></div>
+    <script>
+      const listing = <%- JSON.stringify(listing) %>;
+
+      async function initMap() {
+          const listingLocation = {
+              lat: listing.geometry.coordinates[1], // Latitude
+              lng: listing.geometry.coordinates[0]  // Longitude
+          };
+
+          const map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 12,
+              center: listingLocation,
+              mapId: "STAYNEST_MAP" // A map ID is required for Advanced Markers
+          });
+
+          // The new, modern marker
+          const marker = new google.maps.marker.AdvancedMarkerElement({
+              position: listingLocation,
+              map: map,
+          });
+
+          const infoWindow = new google.maps.InfoWindow({
+              content: `<h5>${listing.location}</h5><p><i>Exact location will be provided after booking</i></p>`
+          });
+
+          marker.addListener("click", () => {
+              infoWindow.open({
+                  anchor: marker,
+                  map,
+              });
+          });
+      }
+    </script>
+  </div>
 </div>
