@@ -1,5 +1,63 @@
-<% layout("/layouts/boilerplate.ejs") %> 
-<h3>All Listings</h3>
+<% layout("/layouts/boilerplate.ejs") %>
+<style>
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .filter {
+    text-align: center;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter p {
+    font-size: 0.8rem;
+  }
+</style>
+<div id="filters">
+  <div class="filter">
+    <div><i class="fa-solid fa-fire"></i></div>
+    <p><b>Trending</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-bed"></i></div>
+    <p><b>Rooms</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-mountain-city"></i></div>
+    <p><b>Iconic Cities</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-mountain"></i></div>
+    <p><b>Mountains</b></p>
+  </div>
+  <div class="filter">
+    <div>
+      <i class="fa-brands fa-fort-awesome"></i>
+    </div>
+    <p><b>Castles</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-person-swimming"></i></div>
+    <p><b>Amazing Pools</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-campground"></i></div>
+    <p><b>Camping</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-cow"></i></div>
+    <p><b>Farms</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-snowflake"></i></div>
+    <p><b>Artic</b></p>
+  </div>
+</div>
 <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
   <% for (const listing of allListings) {%>
   <a href="/listings/<%= listing._id %>" class="listing-link">
