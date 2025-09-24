@@ -21,12 +21,12 @@
   .tax-info {
     display: none;
   }
-  .tax-toggle{
+  .tax-toggle {
     border: 1px solid black;
     border-radius: 1rem;
     height: 3rem;
     padding: 0.8rem;
-    margin-left: 7rem;
+    margin-left: 6rem;
     display: flex;
     align-items: center;
   }
@@ -79,12 +79,12 @@
     <p><b>Boats</b></p>
   </div>
   <div class="filter">
-    <div><i class="fa-solid fa-cow"></i></div>
-    <p><b>Farms</b></p>
+    <div><i class="fa-solid fa-building"></i></div>
+    <p><b>Buildings</b></p>
   </div>
   <div class="filter">
-    <div><i class="fa-solid fa-snowflake"></i></div>
-    <p><b>Artic</b></p>
+    <div><i class="fa-solid fa-umbrella-beach"></i></div>
+    <p><b>Beach</b></p>
   </div>
   <div class="tax-toggle">
     <div class="form-check form-switch form-check-reverse">
@@ -125,7 +125,7 @@
     for (info of taxInfo) {
       if (info.style.display != "inline") {
         info.style.display = "inline";
-      } else{
+      } else {
         info.style.display = "none";
       }
     }
