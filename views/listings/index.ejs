@@ -3,6 +3,7 @@
   #filters {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
   }
   .filter {
     text-align: center;
@@ -16,6 +17,18 @@
   }
   .filter p {
     font-size: 0.8rem;
+  }
+  .tax-info {
+    display: none;
+  }
+  .tax-toggle{
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3rem;
+    padding: 0.8rem;
+    margin-left: 7rem;
+    display: flex;
+    align-items: center;
   }
 </style>
 <div id="filters">
@@ -57,6 +70,22 @@
     <div><i class="fa-solid fa-snowflake"></i></div>
     <p><b>Artic</b></p>
   </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-igloo"></i></div>
+    <p><b>Domes</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-ship"></i></div>
+    <p><b>Boats</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-cow"></i></div>
+    <p><b>Farms</b></p>
+  </div>
+  <div class="filter">
+    <div><i class="fa-solid fa-snowflake"></i></div>
+    <p><b>Artic</b></p>
+  </div>
   <div class="tax-toggle">
     <div class="form-check form-switch form-check-reverse">
       <input class="form-check-input" type="checkbox" id="switchCheckReverse" />
@@ -80,7 +109,8 @@
       <div class="card-body">
         <p class="card-text" style="color: #222222">
           <b><%= listing.title %></b> <br />
-          <%= listing.price.toLocaleString("en-IN") %>/night
+          &#8377;<%= listing.price.toLocaleString("en-IN") %>/night
+          <i class="tax-info">&nbsp; &nbsp; +18% GST</i>
         </p>
       </div>
     </div>
@@ -90,7 +120,14 @@
 
 <script>
   let taxSwitch = document.getElementById("switchCheckReverse");
-  taxSwitch.addEventListener("click",()=>{
-    console.log("Clicked")
-  })
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else{
+        info.style.display = "none";
+      }
+    }
+  });
 </script>
