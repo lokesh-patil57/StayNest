@@ -8,7 +8,7 @@ const flash = require("connect-flash");
 const { isLoggedin, isOwner } = require("../middleware.js");
 const { validateListing } = require("../middleware.js");
 const multer = require("multer");
-const { storage } = require("../cloudconfig.js");
+const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
 const listingController = require("../controllers/listings.js");
