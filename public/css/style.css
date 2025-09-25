@@ -5,6 +5,99 @@ body {
   min-height: 100vh;
 }
 
+@media (max-width: 600px) {
+  .listing-card {
+    border: none !important;
+    flex-direction: column;
+    width: 80vw;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 0px;
+  }
+  #filters{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: auto;
+  }
+}
+/* 📱 Mobile responsiveness */
+@media (max-width: 600px) {
+  /* Make search bar full-width */
+  .search-inp {
+    width: 100%;
+    padding: 0.5rem 1rem; /* reduce side padding */
+    font-size: 0.9rem;
+  }
+
+  /* Search button adjust */
+  .btn-search {
+    width: 100%;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* Navbar items stack nicely */
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.5rem 0;
+  }
+
+  /* Brand icon smaller on mobile */
+  .navbar-brand i {
+    font-size: 1.3rem;
+  }
+}
+
+/* Collapsed navbar menu (mobile view) */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background-color: #ffffff; /* White background */
+    padding: 1rem;
+    border-radius: 0 0 10px 10px; /* smooth dropdown feel */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
+  }
+
+  /* Ensure nav links look good */
+  .navbar-collapse .nav-link {
+    color: #000;  /* Black text */
+    font-weight: 500;
+    margin: 0.5rem 0;
+  }
+
+  /* Fix search form inside collapse */
+  .navbar-collapse form {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-collapse .search-inp {
+    width: 100%;
+  }
+
+  .navbar-collapse .btn-search {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+
+/* Extra small screens */
+@media (max-width: 576px) {
+  .search-inp {
+    font-size: 0.8rem;
+  }
+
+  .btn-search {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+}
+
+
 .container {
   flex: 1;
 }
@@ -100,6 +193,38 @@ body {
 }
 
 #map {
-  height: 400px; 
+  height: 400px;
   width: 100%;
 }
+
+
+#filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter {
+    text-align: center;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter p {
+    font-size: 0.8rem;
+  }
+  .tax-info {
+    display: none;
+  }
+  .tax-toggle {
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3rem;
+    padding: 0.8rem;
+    margin-left: 6rem;
+    display: flex;
+    align-items: center;
+  }
